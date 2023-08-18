@@ -1,11 +1,4 @@
-import {
-  D10Face,
-  D12Face,
-  D20Face,
-  D4Face,
-  D6Face,
-  D8Face,
-} from './DiceFaces.styled'
+import { D10Face, D12Face, D20Face, D4Face, D6Face, D8Face } from './styled'
 
 type DiceProps = {
   id: string

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { D4, D6, D8, D10, D12, D20 } from './DiceFaces'
 import { styled } from 'styled-components'
-import { DiceContext } from '../utils/contexts/DiceContext'
+import { DiceContext } from '../../utils/contexts/DiceContext'
 
 type DiceProps = {
   id: string
