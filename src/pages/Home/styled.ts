@@ -110,7 +110,6 @@ export const HistoryArea = styled.div`
   width: 100%;
   height: 100%;
   max-width: 140rem;
-  gap: 1rem;
 
   border-radius: var(--border-radius-lg);
   background-color: transparent;

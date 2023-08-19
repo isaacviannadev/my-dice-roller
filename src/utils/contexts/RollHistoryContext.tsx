@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext } from 'react'
+import React, { createContext, useState, useContext, useEffect } from 'react'
+import Cookies from 'js-cookie'
 
 interface Roll {
   dice: string
@@ -9,6 +10,7 @@ interface Roll {
 interface RollHistoryContextData {
   history: Roll[]
   addRoll: (roll: Roll) => void
+  clearHistory: () => void
 }
 
 type RollHistoryProviderProps = {
@@ -22,12 +24,26 @@ const RollHistoryContext = createContext<RollHistoryContextData>(
 export const RollHistoryProvider = ({ children }: RollHistoryProviderProps) => {
   const [history, setHistory] = useState<Roll[]>([])
 
+  useEffect(() => {
+    const loadedHistory = Cookies.get('rollHistory')
+    if (loadedHistory) {
+      setHistory(JSON.parse(loadedHistory))
+    }
+  }, [])
+
   const addRoll = (roll: Roll) => {
-    setHistory((prevHistory) => [...prevHistory, roll])
+    const updatedHistory = [...history, roll]
+    setHistory(updatedHistory)
+    Cookies.set('rollHistory', JSON.stringify(updatedHistory))
+  }
+
+  const clearHistory = () => {
+    setHistory([])
+    Cookies.remove('rollHistory')
   }
 
   return (
-    <RollHistoryContext.Provider value={{ history, addRoll }}>
+    <RollHistoryContext.Provider value={{ history, addRoll, clearHistory }}>
       {children}
     </RollHistoryContext.Provider>
   )

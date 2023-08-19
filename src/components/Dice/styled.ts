@@ -13,17 +13,18 @@ const DiceFace = styled.div<DiceProps>`
   height: 100px;
   background-color: var(--brand-tertiary);
   cursor: pointer;
+  color: var(--brand-white);
 
   ${({ isCriticalFail }) =>
     isCriticalFail &&
     css`
       background-color: #eb3737;
-      color: var(--brand-white);
     `};
   ${({ isSuccess }) =>
     isSuccess &&
     css`
       background-color: #2ee270;
+      color: inherit;
     `};
 
   transition: all 0.2s ease-in-out;

@@ -9,11 +9,11 @@ const crossSize = {
     font-size: 1rem;
   `,
   medium: css`
-    height: 3rem;
+    height: 5rem;
     font-size: 1.6rem;
   `,
   large: css`
-    height: 5rem;
+    height: 7rem;
     font-size: 2rem;
   `,
 }

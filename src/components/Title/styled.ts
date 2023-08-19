@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { TitleProps } from '.'
 
-type TitleContainerProps = Pick<TitleProps, 'noPadding'>
+type TitleContainerProps = Pick<TitleProps, 'noPadding' | 'noMargin'>
 
 export const TitleContainer = styled.div<TitleContainerProps>`
   display: flex;

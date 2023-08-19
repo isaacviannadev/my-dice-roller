@@ -21,16 +21,5 @@ export const DrawerContainer = styled.div<{ open: boolean }>`
     left: 0;
     width: 100%;
     padding: 1rem;
-
-    button {
-      width: 100%;
-      height: 5rem;
-      border: 1px solid var(--brand-secondary);
-      text-transform: uppercase;
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      color: var(--brand-secondary);
-    }
   }
 `

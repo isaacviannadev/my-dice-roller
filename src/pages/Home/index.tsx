@@ -18,9 +18,10 @@ import {
 import Toggle from '../../components/Toggle'
 import NumberSelector from '../../components/NumberSelector'
 import Title from '../../components/Title'
-import { Dices, Sliders, History } from 'lucide-react'
+import { Dices, Sliders, History, XCircle } from 'lucide-react'
 import Drawer from '../../components/Drawer'
 import Button from '../../components/Button'
+import NotificationLine from '../../components/HistoryLine'
 
 const DiceSet = [
   { id: 'd4', sides: 4 },
@@ -133,17 +134,18 @@ function Home() {
         <HistoryArea>
           <Title
             noPadding={false}
+            noMargin
             text="Histórico"
-            icon={<History size={32} color="#9d5839" />}
+            icon={<XCircle size={32} color="#9d5839" onClick={toggleDrawer} />}
           />
           <HistoryContent>
             {history.map((roll, index) => (
-              <div key={index}>
-                <span>
-                  {roll.dice} - {roll.result} -{' '}
-                  {roll.timestamp.toLocaleString()}
-                </span>
-              </div>
+              <NotificationLine
+                key={index}
+                text={`${roll.dice} - ${
+                  roll.result
+                } - ${roll.timestamp.toLocaleString()}`}
+              />
             ))}
           </HistoryContent>
         </HistoryArea>
