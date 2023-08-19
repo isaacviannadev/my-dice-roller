@@ -1,13 +1,29 @@
 import { keyframes, styled } from 'styled-components'
 
-export const QuantityContainer = styled.div`
+type NumberSelectorProps = {
+  inline?: boolean
+}
+
+export const QuantityContainer = styled.div<NumberSelectorProps>`
   display: flex;
-  flex-direction: column;
+  flex-direction: ${({ inline }) => (inline ? 'row' : 'column')};
   width: 100%;
+  max-width: 140rem;
   align-items: center;
+  gap: 1rem;
+
+  p {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: bold;
+    width: 100%;
+  }
 `
 
 export const QuantityButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #f0f0f0;
   border-radius: 50%;
   width: 3.6rem;
@@ -30,7 +46,11 @@ export const QuantityWrapper = styled.div`
 `
 
 export const ResetButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: none;
+  white-space: nowrap;
   border: none;
   color: var(--brand-secondary);
   font-size: 1.6rem;
@@ -51,9 +71,13 @@ const changeColorAnimation = keyframes`
 `
 
 export const QuantityDisplay = styled.span<{ animate: boolean }>`
-  padding: 5px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-weight: bold;
+  white-space: nowrap;
   font-size: 3rem;
+  min-width: 5rem;
 
   animation: ${(props) => (props.animate ? changeColorAnimation : 'none')} 0.5s
     linear;

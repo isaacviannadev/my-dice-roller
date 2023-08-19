@@ -1,6 +1,11 @@
-import { styled } from 'styled-components'
+import { css, styled } from 'styled-components'
 
-const DiceFace = styled.div`
+type DiceProps = {
+  isCriticalFail?: boolean
+  isSuccess?: boolean
+}
+
+const DiceFace = styled.div<DiceProps>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,6 +13,18 @@ const DiceFace = styled.div`
   height: 100px;
   background-color: var(--brand-tertiary);
   cursor: pointer;
+
+  ${({ isCriticalFail }) =>
+    isCriticalFail &&
+    css`
+      background-color: #eb3737;
+      color: var(--brand-white);
+    `};
+  ${({ isSuccess }) =>
+    isSuccess &&
+    css`
+      background-color: #2ee270;
+    `};
 
   transition: all 0.2s ease-in-out;
 

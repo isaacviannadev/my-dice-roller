@@ -7,17 +7,19 @@ import {
   QuantityWrapper,
 } from './styled'
 
-interface DiceQuantitySelectorProps {
+interface NumberSelectorProps {
   onChange: (quantity: number) => void
   initialQuantity?: number
   label?: string
+  inline?: boolean
 }
 
-const DiceQuantitySelector = ({
+const NumberSelector = ({
+  onChange,
   initialQuantity = 1,
   label = 'Quantidade de dados',
-  onChange,
-}: DiceQuantitySelectorProps) => {
+  inline = false,
+}: NumberSelectorProps) => {
   const [quantity, setQuantity] = useState(initialQuantity)
   const [animate, setAnimate] = useState(false)
 
@@ -49,8 +51,8 @@ const DiceQuantitySelector = ({
   }, [animate])
 
   return (
-    <QuantityContainer>
-      <h2>{label}</h2>
+    <QuantityContainer inline={inline}>
+      <p>{label}</p>
       <QuantityWrapper>
         <QuantityButton onClick={decrement}>-</QuantityButton>
         <QuantityDisplay animate={animate}>{quantity}</QuantityDisplay>
@@ -61,4 +63,4 @@ const DiceQuantitySelector = ({
   )
 }
 
-export default DiceQuantitySelector
+export default NumberSelector

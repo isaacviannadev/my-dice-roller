@@ -8,9 +8,11 @@ import {
   MenuArea,
   DiceResults,
   ResultsWrapper,
+  SettingsWrapper,
+  SelectionWrapper,
 } from './index.styled'
 import Toggle from '../../components/Toggle'
-import DiceQuantitySelector from '../../components/DiceQuantity'
+import NumberSelector from '../../components/NumberSelector'
 
 const DiceSet = [
   { id: 'd4', sides: 4 },
@@ -26,9 +28,16 @@ function Home() {
 
   const [diceActive, setDiceActive] = useState(20)
   const [quantity, setQuantity] = useState(1)
+  const [difficult, setDifficult] = useState(0)
 
   const handleRollClick = () => {
     rollMultipleDice('selected', diceActive, quantity)
+  }
+
+  const isSucess = (result: number) => {
+    if (difficult === 0) return diceActive === result
+
+    return result >= difficult
   }
 
   const toggleItems = DiceSet.map((side) => ({
@@ -47,27 +56,42 @@ function Home() {
     <HomeContainer>
       <h1>Dice Roller</h1>
 
-      <MenuArea>
-        <Toggle items={toggleItems} />
-      </MenuArea>
+      <SelectionWrapper>
+        <MenuArea>
+          <Toggle items={toggleItems} />
+          <DiceLine>
+            {DiceSet.map((side) => (
+              <DiceButton
+                disabled={side.sides !== diceActive}
+                key={side.id}
+                onClick={handleRollClick}
+              >
+                <Dice
+                  id={side.id}
+                  result={`D-${side.sides}`}
+                  sides={side.sides}
+                />
+                <span>Rolar !</span>
+              </DiceButton>
+            ))}
+          </DiceLine>
+        </MenuArea>
 
-      <DiceQuantitySelector
-        initialQuantity={1}
-        onChange={(newQuantity) => setQuantity(newQuantity)}
-      />
-
-      <DiceLine>
-        {DiceSet.map((side) => (
-          <DiceButton
-            disabled={side.sides !== diceActive}
-            key={side.id}
-            onClick={handleRollClick}
-          >
-            <Dice id={side.id} result={`D-${side.sides}`} sides={side.sides} />
-            <span>Rolar !</span>
-          </DiceButton>
-        ))}
-      </DiceLine>
+        <SettingsWrapper>
+          <h2>Configurações</h2>
+          <NumberSelector
+            inline
+            initialQuantity={1}
+            onChange={(newQuantity) => setQuantity(newQuantity)}
+          />
+          <NumberSelector
+            inline
+            label="Dificuldade"
+            initialQuantity={0}
+            onChange={(newDifficult) => setDifficult(newDifficult)}
+          />
+        </SettingsWrapper>
+      </SelectionWrapper>
 
       <ResultsWrapper>
         <h2>Resultados</h2>
@@ -78,6 +102,8 @@ function Home() {
               id={'' + result}
               result={result + ''}
               sides={diceActive}
+              isCriticalFail={result === 1}
+              isSuccess={isSucess(result)}
             />
           ))}
         </DiceResults>

@@ -7,14 +7,22 @@ export const HomeContainer = styled.div`
   height: 100%;
   gap: 20px;
 `
+export const SelectionWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 140rem;
+  gap: 2rem;
+`
 
 export const MenuArea = styled.div`
   display: flex;
+  flex: 2;
+  flex-direction: column;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
-
-  width: 100%;
-  max-width: 140rem;
 `
 
 export const DiceLine = styled.div`
@@ -76,7 +84,14 @@ export const ResultsWrapper = styled.div`
 
 export const DiceResults = styled(ResultsWrapper)`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
   flex-direction: row;
+`
+
+export const SettingsWrapper = styled(ResultsWrapper)`
+  flex-direction: space-between;
+  width: fit-content;
+  flex: 1;
 `
