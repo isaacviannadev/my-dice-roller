@@ -33,7 +33,7 @@ export const ToggleItem = styled.button<ToggleSlideProps>`
     overflow: hidden;
 
     &.active {
-      color: #e51b15;
+      color: var(--brand-secondary);
       font-weight: 600;
     }
 
@@ -48,7 +48,7 @@ export const ToggleSlideDiv = styled.div`
   display: block;
   width: 90%;
   position: absolute;
-  background-color: #fff;
+  background-color: var(--brand-white);
   height: 2.6rem;
   border-radius: 2.4rem;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);

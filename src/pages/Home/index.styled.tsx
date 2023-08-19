@@ -4,6 +4,7 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
   gap: 20px;
 `
 
@@ -13,47 +14,54 @@ export const MenuArea = styled.div`
   align-items: center;
 
   width: 100%;
-  max-width: 800px;
+  max-width: 140rem;
 `
 
 export const DiceLine = styled.div`
   display: flex;
-  gap: 20px;
+  width: 100%;
+  max-width: 140rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 `
 
 export const DiceButton = styled.button`
-  background-color: #eee;
+  background-color: #e3e3e3;
+  flex-grow: 1;
+  min-width: 12rem;
   border: none;
   border-radius: 5px;
-  padding: 10px;
-  font-size: 16px;
+  padding: 1rem;
+  font-size: 1.6rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 
   span {
-    margin-top: 10px;
+    margin-top: 1rem;
     display: block;
     text-align: center;
-    color: #666;
+    color: inherit;
   }
 
   &:hover:not(:disabled) {
-    background-color: #ddd;
-    box-shadow: 0 0 10px #ddd;
+    background-color: var(--brand-primary);
+    box-shadow: var(--shadow-sm);
     transform: scale(1.1);
 
     > div div {
       transform: scale(1.1);
-      background-color: gray;
+      background-color: var(--brand-secondary);
 
       span {
-        color: #fff;
+        color: var(--brand-light);
       }
     }
   }
 
   &:disabled {
-    opacity: 0.5;
+    opacity: 0.4;
     pointer-events: none;
   }
 `

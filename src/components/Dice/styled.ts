@@ -6,7 +6,7 @@ const DiceFace = styled.div`
   align-items: center;
   width: 100px;
   height: 100px;
-  background-color: lightgrey;
+  background-color: var(--brand-tertiary);
   cursor: pointer;
 
   transition: all 0.2s ease-in-out;

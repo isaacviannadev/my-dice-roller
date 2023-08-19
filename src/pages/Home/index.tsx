@@ -40,7 +40,7 @@ function Home() {
             onClick={() => rollDice(side.id, side.sides)}
           >
             <Dice id={side.id} sides={side.sides} />
-            <span>{`D-${side.sides}`}</span>
+            {/* <span>{`D-${side.sides}`}</span> */}
           </DiceButton>
         ))}
       </DiceLine>
