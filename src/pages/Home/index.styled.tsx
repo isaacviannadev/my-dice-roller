@@ -13,12 +13,17 @@ export const SelectionWrapper = styled.div`
   justify-content: space-between;
   width: 100%;
   max-width: 140rem;
-  gap: 2rem;
+  height: 100%;
+  gap: 4rem;
+
+  @media only screen and (max-width: 768px) {
+    flex-direction: column-reverse;
+  }
 `
 
 export const MenuArea = styled.div`
   display: flex;
-  flex: 2;
+  flex: 1;
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
@@ -38,7 +43,6 @@ export const DiceLine = styled.div`
 export const DiceButton = styled.button`
   background-color: #e3e3e3;
   flex-grow: 1;
-  min-width: 12rem;
   border: none;
   border-radius: 5px;
   padding: 1rem;
@@ -76,6 +80,7 @@ export const DiceButton = styled.button`
 
 export const ResultsWrapper = styled.div`
   display: flex;
+  flex: 1;
   width: 100%;
   flex-direction: column;
   align-items: center;
@@ -88,10 +93,13 @@ export const DiceResults = styled(ResultsWrapper)`
   align-items: center;
   justify-content: center;
   flex-direction: row;
+
+  border-radius: var(--border-radius-lg);
+
+  background-color: var(--brand-secondary);
 `
 
 export const SettingsWrapper = styled(ResultsWrapper)`
   flex-direction: space-between;
-  width: fit-content;
-  flex: 1;
+  width: 100%;
 `

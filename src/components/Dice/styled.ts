@@ -30,6 +30,7 @@ const DiceFace = styled.div<DiceProps>`
 
   span {
     font-size: 2rem;
+    margin: 0;
   }
 `
 

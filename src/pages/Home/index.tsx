@@ -58,8 +58,42 @@ function Home() {
       <h1>Dice Roller</h1>
 
       <SelectionWrapper>
+        <ResultsWrapper>
+          <h2>Resultados</h2>
+          <DiceResults>
+            {results.selected?.map((result, index) => (
+              <Dice
+                key={index}
+                id={'' + result}
+                result={result + ''}
+                sides={diceActive}
+                isCriticalFail={result === 1}
+                isSuccess={isSuccess(result)}
+              />
+            ))}
+          </DiceResults>
+        </ResultsWrapper>
+
         <MenuArea>
+          <SettingsWrapper>
+            <h2>Configurações</h2>
+            <NumberSelector
+              inline
+              initialQuantity={1}
+              onChange={(newQuantity) => setQuantity(newQuantity)}
+            />
+            <NumberSelector
+              inline
+              initialActive={false}
+              label="Dificuldade"
+              initialQuantity={0}
+              maxQuantity={diceActive}
+              onChange={(newDifficult) => setDifficult(newDifficult)}
+            />
+          </SettingsWrapper>
+
           <Toggle items={toggleItems} />
+
           <DiceLine>
             {DiceSet.map((side) => (
               <DiceButton
@@ -67,50 +101,12 @@ function Home() {
                 key={side.id}
                 onClick={handleRollClick}
               >
-                <Dice
-                  id={side.id}
-                  result={`D-${side.sides}`}
-                  sides={side.sides}
-                />
-                <span>Rolar !</span>
+                <Dice id={side.id} result="Rolar" sides={side.sides} />
               </DiceButton>
             ))}
           </DiceLine>
         </MenuArea>
-
-        <SettingsWrapper>
-          <h2>Configurações</h2>
-          <NumberSelector
-            inline
-            initialQuantity={1}
-            onChange={(newQuantity) => setQuantity(newQuantity)}
-          />
-          <NumberSelector
-            inline
-            initialActive={false}
-            label="Dificuldade"
-            initialQuantity={0}
-            maxQuantity={diceActive}
-            onChange={(newDifficult) => setDifficult(newDifficult)}
-          />
-        </SettingsWrapper>
       </SelectionWrapper>
-
-      <ResultsWrapper>
-        <h2>Resultados</h2>
-        <DiceResults>
-          {results.selected?.map((result, index) => (
-            <Dice
-              key={index}
-              id={'' + result}
-              result={result + ''}
-              sides={diceActive}
-              isCriticalFail={result === 1}
-              isSuccess={isSuccess(result)}
-            />
-          ))}
-        </DiceResults>
-      </ResultsWrapper>
     </HomeContainer>
   )
 }

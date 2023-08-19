@@ -8,11 +8,18 @@ type DiceProviderProps = {
 export const DiceProvider = ({ children }: DiceProviderProps) => {
   const [results, setResults] = useState<Record<string, number[]>>({})
 
+  const playRollSound = () => {
+    const audio = new Audio('/sounds/dado.mp3')
+    audio.play()
+  }
+
   const rollMultipleDice = (id: string, sides: number, quantity: number) => {
     const rolls = Array.from(
       { length: quantity },
       () => Math.floor(Math.random() * sides) + 1,
     )
+    playRollSound()
+
     setResults((prevResults) => ({
       ...prevResults,
       [id]: rolls,
