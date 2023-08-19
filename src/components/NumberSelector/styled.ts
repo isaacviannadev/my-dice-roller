@@ -8,10 +8,8 @@ export const QuantityContainer = styled.div<NumberSelectorProps>`
   display: flex;
   flex-direction: ${({ inline }) => (inline ? 'row' : 'column')};
   width: 100%;
-  max-width: 140rem;
   align-items: center;
   justify-content: space-between;
-  height: 100%;
   gap: 1rem;
 `
 

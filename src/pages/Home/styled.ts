@@ -4,8 +4,8 @@ export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   gap: 20px;
+  height: 100%;
 `
 export const SelectionWrapper = styled.div`
   display: flex;
@@ -14,7 +14,7 @@ export const SelectionWrapper = styled.div`
   width: 100%;
   max-width: 140rem;
   height: 100%;
-  gap: 4rem;
+  gap: 3rem;
 
   @media only screen and (max-width: 768px) {
     flex-direction: column-reverse;
@@ -23,11 +23,12 @@ export const SelectionWrapper = styled.div`
 
 export const MenuArea = styled.div`
   display: flex;
-  flex: 1;
   flex-direction: column;
   gap: 2rem;
-  justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 50rem;
 `
 
 export const DiceLine = styled.div`
@@ -80,7 +81,6 @@ export const DiceButton = styled.button`
 
 export const ResultsWrapper = styled.div`
   display: flex;
-  flex: 1;
   width: 100%;
   flex-direction: column;
   align-items: center;
@@ -89,17 +89,42 @@ export const ResultsWrapper = styled.div`
 
 export const DiceResults = styled(ResultsWrapper)`
   display: flex;
+  flex: 1;
+  flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  flex-direction: row;
 
   border-radius: var(--border-radius-lg);
-
   background-color: var(--brand-secondary);
 `
 
 export const SettingsWrapper = styled(ResultsWrapper)`
   flex-direction: space-between;
+  margin-bottom: 2rem;
+`
+
+export const HistoryArea = styled.div`
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 100%;
+  max-width: 140rem;
+  gap: 1rem;
+
+  border-radius: var(--border-radius-lg);
+  background-color: transparent;
+`
+export const HistoryContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  max-width: 140rem;
+  gap: 0.5rem;
+  margin-bottom: 7rem;
+  border-top: 1px solid var(--brand-secondary);
+  border-bottom: 1px solid var(--brand-secondary);
+  padding: 1rem;
+  overflow-y: auto;
 `

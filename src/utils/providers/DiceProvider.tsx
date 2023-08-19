@@ -1,5 +1,6 @@
 import { ReactNode, useState } from 'react'
 import { DiceContext } from '../contexts/DiceContext'
+import { useRollHistory } from '../contexts/RollHistoryContext'
 
 type DiceProviderProps = {
   children: ReactNode
@@ -7,6 +8,7 @@ type DiceProviderProps = {
 
 export const DiceProvider = ({ children }: DiceProviderProps) => {
   const [results, setResults] = useState<Record<string, number[]>>({})
+  const { addRoll } = useRollHistory()
 
   const playRollSound = () => {
     const audio = new Audio('/sounds/dado.mp3')
@@ -24,6 +26,12 @@ export const DiceProvider = ({ children }: DiceProviderProps) => {
       ...prevResults,
       [id]: rolls,
     }))
+
+    addRoll({
+      dice: `D-${sides}`,
+      result: rolls,
+      timestamp: new Date(),
+    })
   }
 
   const clearResults = (id: string) => {

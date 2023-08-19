@@ -31,8 +31,9 @@ const GlobalStyles = createGlobalStyle`
     --shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 0.8rem 1.6rem rgba(0, 0, 0, 0.1);
     --shadow-sm: 0 0.2rem 0.4rem rgba(0, 0, 0, 0.1);
-
-    
+    --shadow-md: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
+    --shadow-left: -0.4rem 0 0.8rem rgba(0, 0, 0, 0.1);
+    --shadow-right: 0.4rem 0 0.8rem rgba(0, 0, 0, 0.1);
 
   }
 

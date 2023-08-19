@@ -4,14 +4,17 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { DiceProvider } from './utils/providers/DiceProvider'
 import GlobalStyles from './globalStyles'
+import { RollHistoryProvider } from './utils/contexts/RollHistoryContext'
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
-    <DiceProvider>
-      <GlobalStyles />
-      <App />
-    </DiceProvider>
+    <RollHistoryProvider>
+      <DiceProvider>
+        <GlobalStyles />
+        <App />
+      </DiceProvider>
+    </RollHistoryProvider>
   </React.StrictMode>,
 )
 
