@@ -34,7 +34,7 @@ function Home() {
     rollMultipleDice('selected', diceActive, quantity)
   }
 
-  const isSucess = (result: number) => {
+  const isSuccess = (result: number) => {
     if (difficult === 0) return diceActive === result
 
     return result >= difficult
@@ -48,6 +48,7 @@ function Home() {
   }))
 
   useEffect(() => {
+    setDifficult(0)
     clearResults('selected')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diceActive])
@@ -86,8 +87,10 @@ function Home() {
           />
           <NumberSelector
             inline
+            initialActive={false}
             label="Dificuldade"
             initialQuantity={0}
+            maxQuantity={diceActive}
             onChange={(newDifficult) => setDifficult(newDifficult)}
           />
         </SettingsWrapper>
@@ -103,7 +106,7 @@ function Home() {
               result={result + ''}
               sides={diceActive}
               isCriticalFail={result === 1}
-              isSuccess={isSucess(result)}
+              isSuccess={isSuccess(result)}
             />
           ))}
         </DiceResults>

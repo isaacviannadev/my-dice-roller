@@ -10,7 +10,18 @@ export const QuantityContainer = styled.div<NumberSelectorProps>`
   width: 100%;
   max-width: 140rem;
   align-items: center;
+  justify-content: space-between;
+  height: 100%;
   gap: 1rem;
+`
+
+export const FunctionName = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 24rem;
 
   p {
     margin: 0;
@@ -35,6 +46,11 @@ export const QuantityButton = styled.button`
 
   &:hover {
     background: #e0e0e0;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 `
 
@@ -82,4 +98,11 @@ export const QuantityDisplay = styled.span<{ animate: boolean }>`
   animation: ${(props) => (props.animate ? changeColorAnimation : 'none')} 0.5s
     linear;
   animation-iteration-count: ${(props) => (props.animate ? 1 : 0)};
+`
+export const OffMessage = styled.span`
+  text-align: right;
+  opacity: 0.5;
+  font-size: 2rem;
+  font-style: italic;
+  white-space: nowrap;
 `

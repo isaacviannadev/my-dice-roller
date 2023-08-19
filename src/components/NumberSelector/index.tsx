@@ -5,13 +5,19 @@ import {
   QuantityDisplay,
   ResetButton,
   QuantityWrapper,
+  OffMessage,
+  FunctionName,
 } from './styled'
+import { Eye, EyeOff } from 'lucide-react'
 
 interface NumberSelectorProps {
   onChange: (quantity: number) => void
   initialQuantity?: number
+  maxQuantity?: number
   label?: string
   inline?: boolean
+  active?: boolean
+  initialActive?: boolean
 }
 
 const NumberSelector = ({
@@ -19,12 +25,15 @@ const NumberSelector = ({
   initialQuantity = 1,
   label = 'Quantidade de dados',
   inline = false,
+  initialActive = true,
+  maxQuantity = 99,
 }: NumberSelectorProps) => {
   const [quantity, setQuantity] = useState(initialQuantity)
   const [animate, setAnimate] = useState(false)
+  const [isActive, setIsActive] = useState(initialActive)
 
   const increment = () => {
-    const newQuantity = quantity + 1
+    const newQuantity = Math.min(maxQuantity, quantity + 1)
     setQuantity(newQuantity)
     onChange(newQuantity)
     setAnimate(!animate)
@@ -43,6 +52,13 @@ const NumberSelector = ({
     setAnimate(!animate)
   }
 
+  const toggleActive = () => {
+    if (!initialActive) {
+      setQuantity(initialQuantity)
+      setIsActive(!isActive)
+    }
+  }
+
   useEffect(() => {
     if (animate) {
       const timer = setTimeout(() => setAnimate(false), 500)
@@ -50,15 +66,42 @@ const NumberSelector = ({
     }
   }, [animate])
 
+  useEffect(() => {
+    setQuantity(initialQuantity)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [maxQuantity])
+
   return (
     <QuantityContainer inline={inline}>
-      <p>{label}</p>
-      <QuantityWrapper>
-        <QuantityButton onClick={decrement}>-</QuantityButton>
-        <QuantityDisplay animate={animate}>{quantity}</QuantityDisplay>
-        <QuantityButton onClick={increment}>+</QuantityButton>
-      </QuantityWrapper>
-      <ResetButton onClick={reset}>Resetar</ResetButton>
+      <FunctionName onClick={toggleActive}>
+        <p>{label}</p>
+        {!initialActive &&
+          (isActive ? (
+            <Eye size={20} color="#9d5839" />
+          ) : (
+            <EyeOff size={20} color="#d1bdb3" />
+          ))}
+      </FunctionName>
+      {isActive ? (
+        <QuantityWrapper>
+          <QuantityButton
+            onClick={decrement}
+            disabled={quantity <= initialQuantity}
+          >
+            -
+          </QuantityButton>
+          <QuantityDisplay animate={animate}>{quantity}</QuantityDisplay>
+          <QuantityButton
+            onClick={increment}
+            disabled={quantity >= maxQuantity}
+          >
+            +
+          </QuantityButton>
+          <ResetButton onClick={reset}>Resetar</ResetButton>
+        </QuantityWrapper>
+      ) : (
+        <OffMessage>Desativado</OffMessage>
+      )}
     </QuantityContainer>
   )
 }
