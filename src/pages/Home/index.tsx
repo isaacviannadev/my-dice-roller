@@ -1,8 +1,16 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Dice from '../../components/Dice'
 import { DiceContext } from '../../utils/contexts/DiceContext'
-import { HomeContainer, DiceLine, DiceButton, MenuArea } from './index.styled'
+import {
+  HomeContainer,
+  DiceLine,
+  DiceButton,
+  MenuArea,
+  DiceResults,
+  ResultsWrapper,
+} from './index.styled'
 import Toggle from '../../components/Toggle'
+import DiceQuantitySelector from '../../components/DiceQuantity'
 
 const DiceSet = [
   { id: 'd4', sides: 4 },
@@ -14,16 +22,26 @@ const DiceSet = [
 ]
 
 function Home() {
-  const { rollDice } = useContext(DiceContext)
+  const { results, rollMultipleDice, clearResults } = useContext(DiceContext)
 
-  const [diceActive, setDiceActive] = useState('d20')
+  const [diceActive, setDiceActive] = useState(20)
+  const [quantity, setQuantity] = useState(1)
+
+  const handleRollClick = () => {
+    rollMultipleDice('selected', diceActive, quantity)
+  }
 
   const toggleItems = DiceSet.map((side) => ({
     text: `D-${side.sides}`,
     id: side.id,
     active: side.sides === 20 ? true : false,
-    action: () => setDiceActive(side.id),
+    action: () => setDiceActive(side.sides),
   }))
+
+  useEffect(() => {
+    clearResults('selected')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [diceActive])
 
   return (
     <HomeContainer>
@@ -32,18 +50,38 @@ function Home() {
       <MenuArea>
         <Toggle items={toggleItems} />
       </MenuArea>
+
+      <DiceQuantitySelector
+        initialQuantity={1}
+        onChange={(newQuantity) => setQuantity(newQuantity)}
+      />
+
       <DiceLine>
         {DiceSet.map((side) => (
           <DiceButton
-            disabled={side.id !== diceActive}
+            disabled={side.sides !== diceActive}
             key={side.id}
-            onClick={() => rollDice(side.id, side.sides)}
+            onClick={handleRollClick}
           >
-            <Dice id={side.id} sides={side.sides} />
-            {/* <span>{`D-${side.sides}`}</span> */}
+            <Dice id={side.id} result={`D-${side.sides}`} sides={side.sides} />
+            <span>Rolar !</span>
           </DiceButton>
         ))}
       </DiceLine>
+
+      <ResultsWrapper>
+        <h2>Resultados</h2>
+        <DiceResults>
+          {results.selected?.map((result, index) => (
+            <Dice
+              key={index}
+              id={'' + result}
+              result={result + ''}
+              sides={diceActive}
+            />
+          ))}
+        </DiceResults>
+      </ResultsWrapper>
     </HomeContainer>
   )
 }

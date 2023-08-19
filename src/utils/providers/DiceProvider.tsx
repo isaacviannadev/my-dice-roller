@@ -6,17 +6,29 @@ type DiceProviderProps = {
 }
 
 export const DiceProvider = ({ children }: DiceProviderProps) => {
-  const [results, setResults] = useState<Record<string, number>>({})
+  const [results, setResults] = useState<Record<string, number[]>>({})
 
-  const rollDice = (id: string, sides: number) => {
+  const rollMultipleDice = (id: string, sides: number, quantity: number) => {
+    const rolls = Array.from(
+      { length: quantity },
+      () => Math.floor(Math.random() * sides) + 1,
+    )
     setResults((prevResults) => ({
       ...prevResults,
-      [id]: Math.floor(Math.random() * sides) + 1,
+      [id]: rolls,
     }))
   }
 
+  const clearResults = (id: string) => {
+    setResults((prevResults) => {
+      const newResults = { ...prevResults }
+      delete newResults[id]
+      return newResults
+    })
+  }
+
   return (
-    <DiceContext.Provider value={{ results, rollDice }}>
+    <DiceContext.Provider value={{ results, rollMultipleDice, clearResults }}>
       {children}
     </DiceContext.Provider>
   )

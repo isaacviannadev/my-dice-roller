@@ -65,3 +65,18 @@ export const DiceButton = styled.button`
     pointer-events: none;
   }
 `
+
+export const ResultsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+`
+
+export const DiceResults = styled(ResultsWrapper)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`

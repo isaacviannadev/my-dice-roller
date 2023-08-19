@@ -1,11 +1,10 @@
-import { useContext } from 'react'
 import { D4, D6, D8, D10, D12, D20 } from './DiceFaces'
 import { styled } from 'styled-components'
-import { DiceContext } from '../../utils/contexts/DiceContext'
 
 type DiceProps = {
   id: string
   sides: number
+  result: string
 }
 
 const DiceContainer = styled.div`
@@ -15,10 +14,7 @@ const DiceContainer = styled.div`
   cursor: pointer;
 `
 
-const Dice = ({ id, sides }: DiceProps) => {
-  const { results } = useContext(DiceContext)
-  const result = results[id] ?? '?'
-
+const Dice = ({ id, sides, result = '?' }: DiceProps) => {
   const renderDiceFace = () => {
     switch (sides) {
       case 4:

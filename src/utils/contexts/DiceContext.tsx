@@ -1,11 +1,13 @@
 import { createContext } from 'react'
 
 interface DiceContextProps {
-  results: Record<string, number>
-  rollDice: (id: string, sides: number) => void
+  results: Record<string, number[]>
+  rollMultipleDice: (id: string, sides: number, quantity: number) => void
+  clearResults: (id: string) => void
 }
 
 export const DiceContext = createContext<DiceContextProps>({
   results: {},
-  rollDice: () => {},
+  rollMultipleDice: () => {},
+  clearResults: () => {},
 })
