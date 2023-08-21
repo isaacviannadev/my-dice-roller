@@ -1,4 +1,5 @@
 import { keyframes, styled } from 'styled-components'
+import { media } from '../../utils/helpers'
 
 type NumberSelectorProps = {
   inline?: boolean
@@ -23,9 +24,16 @@ export const FunctionName = styled.div`
 
   p {
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     width: 100%;
+    color: var(--brand-primary);
+  }
+
+  ${media.md} {
+    p {
+      font-size: 2rem;
+    }
   }
 `
 
@@ -35,12 +43,12 @@ export const QuantityButton = styled.button`
   justify-content: center;
   background: #f0f0f0;
   border-radius: 50%;
-  width: 3.6rem;
-  height: 3.6rem;
+  width: 2rem;
+  height: 2rem;
   border: 1px solid #ccc;
   cursor: pointer;
   transition: background 0.3s;
-  font-size: 1.8rem;
+  font-size: 3rem;
 
   &:hover {
     background: #e0e0e0;
@@ -49,6 +57,11 @@ export const QuantityButton = styled.button`
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  ${media.md} {
+    width: 3rem;
+    height: 3rem;
   }
 `
 
@@ -78,6 +91,12 @@ export const ResetButton = styled.button`
     text-decoration: underline;
     color: var(--brand-tertiary);
   }
+
+  margin-left: 1.4rem;
+
+  ${media.md} {
+    margin-left: 0;
+  }
 `
 const changeColorAnimation = keyframes`
   0% { color: currentColor; }
@@ -90,17 +109,24 @@ export const QuantityDisplay = styled.span<{ animate: boolean }>`
   justify-content: center;
   font-weight: bold;
   white-space: nowrap;
-  font-size: 3rem;
-  min-width: 5rem;
-
+  font-size: 2rem;
+  width: fit-content;
   animation: ${(props) => (props.animate ? changeColorAnimation : 'none')} 0.5s
     linear;
   animation-iteration-count: ${(props) => (props.animate ? 1 : 0)};
+
+  ${media.md} {
+    font-size: 2rem;
+  }
 `
 export const OffMessage = styled.span`
   text-align: right;
   opacity: 0.5;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-style: italic;
   white-space: nowrap;
+
+  ${media.md} {
+    font-size: 2rem;
+  }
 `

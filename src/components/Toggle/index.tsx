@@ -28,25 +28,31 @@ export const Toggle = ({ items, filteredData }: ToggleProps) => {
   }
 
   useEffect(() => {
-    filteredData && filteredData(items[isActive].id)
+    const updateSizeAndPosition = () => {
+      filteredData && filteredData(items[isActive].id)
 
-    const activeItemRef = toggleItemRefs.current[isActive]
-    const toggleSlideElement = toggleSlide.current
-    const toggleBarElement = toggleBar.current
+      const activeItemRef = toggleItemRefs.current[isActive]
+      const toggleSlideElement = toggleSlide.current
+      const toggleBarElement = toggleBar.current
 
-    if (activeItemRef && toggleSlideElement && toggleBarElement) {
-      const activeItemRect = activeItemRef.getBoundingClientRect()
-      const toggleBarRect = toggleBarElement.getBoundingClientRect()
+      if (activeItemRef && toggleSlideElement && toggleBarElement) {
+        const activeItemRect = activeItemRef.getBoundingClientRect()
+        const toggleBarRect = toggleBarElement.getBoundingClientRect()
 
-      const slideWidth = activeItemRect.width
-      const slideLeft =
-        activeItemRect.left -
-        toggleBarRect.left +
-        activeItemRect.width / 2 -
-        slideWidth / 2
+        const slideWidth = activeItemRect.width - 8
+        const slideLeft = activeItemRect.left - toggleBarRect.left
 
-      toggleSlideElement.style.transform = `translateX(${slideLeft}px)`
-      toggleSlideElement.style.width = `${slideWidth}px`
+        toggleSlideElement.style.transform = `translateX(${slideLeft}px)`
+        toggleSlideElement.style.width = `${slideWidth}px`
+      }
+    }
+
+    updateSizeAndPosition()
+
+    window.addEventListener('resize', updateSizeAndPosition)
+
+    return () => {
+      window.removeEventListener('resize', updateSizeAndPosition)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive])

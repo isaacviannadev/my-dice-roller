@@ -8,7 +8,8 @@ import {
   OffMessage,
   FunctionName,
 } from './styled'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Minus, Plus } from 'lucide-react'
+import useBreakpoint from '../../utils/hooks/useBreakpoint'
 
 interface NumberSelectorProps {
   onChange: (quantity: number) => void
@@ -31,6 +32,8 @@ const NumberSelector = ({
   const [quantity, setQuantity] = useState(initialQuantity)
   const [animate, setAnimate] = useState(false)
   const [isActive, setIsActive] = useState(initialActive)
+
+  const currentBreakpoint = useBreakpoint()
 
   const increment = () => {
     const newQuantity = Math.min(maxQuantity, quantity + 1)
@@ -55,6 +58,7 @@ const NumberSelector = ({
   const toggleActive = () => {
     if (!initialActive) {
       setQuantity(initialQuantity)
+      onChange(initialQuantity)
       setIsActive(!isActive)
     }
   }
@@ -71,15 +75,17 @@ const NumberSelector = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxQuantity])
 
+  const iconSize = currentBreakpoint === 'xs' ? 18 : 20
+
   return (
     <QuantityContainer inline={inline}>
       <FunctionName onClick={toggleActive}>
         <p>{label}</p>
         {!initialActive &&
           (isActive ? (
-            <Eye size={20} color="#9d5839" />
+            <Eye size={iconSize} color="#9d5839" />
           ) : (
-            <EyeOff size={20} color="#d1bdb3" />
+            <EyeOff size={iconSize} color="#d1bdb3" />
           ))}
       </FunctionName>
       {isActive ? (
@@ -88,14 +94,14 @@ const NumberSelector = ({
             onClick={decrement}
             disabled={quantity <= initialQuantity}
           >
-            -
+            <Minus size={iconSize} color="#9d5839" />
           </QuantityButton>
           <QuantityDisplay animate={animate}>{quantity}</QuantityDisplay>
           <QuantityButton
             onClick={increment}
             disabled={quantity >= maxQuantity}
           >
-            +
+            <Plus size={iconSize} color="#9d5839" />
           </QuantityButton>
           <ResetButton onClick={reset}>Resetar</ResetButton>
         </QuantityWrapper>

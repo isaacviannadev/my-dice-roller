@@ -3,6 +3,7 @@ import { TitleContainer, IconContainer } from './styled'
 export type TitleProps = {
   text: string
   icon: React.ReactNode
+  textColor?: string
   noPadding?: boolean
   noMargin?: boolean
 } & React.HTMLAttributes<HTMLDivElement>
@@ -10,10 +11,17 @@ export type TitleProps = {
 const Title = ({
   text,
   icon,
+  textColor,
   noPadding = true,
-  noMargin = false,
+  noMargin = true,
+  ...rest
 }: TitleProps) => (
-  <TitleContainer noPadding={noPadding} noMargin={noMargin}>
+  <TitleContainer
+    noPadding={noPadding}
+    noMargin={noMargin}
+    textColor={textColor}
+    {...rest}
+  >
     <h2>{text}</h2>
     <IconContainer>{icon}</IconContainer>
   </TitleContainer>

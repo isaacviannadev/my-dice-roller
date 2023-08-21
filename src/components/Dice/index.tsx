@@ -1,19 +1,58 @@
-import { D4, D6, D8, D10, D12, D20 } from './DiceFaces'
-import { styled } from 'styled-components'
+import { D4, D6, D8, D10, D12, D20 } from '../../assets/svgss'
+import styled, { css } from 'styled-components'
+import { DiceFace } from './styled'
 
-type DiceProps = {
+export type DiceProps = {
   id: string
   sides: number
   result: string
   isCriticalFail?: boolean
   isSuccess?: boolean
+  animate?: boolean
 }
 
-const DiceContainer = styled.div`
+type DiceContainerProps = Pick<DiceProps, 'isCriticalFail' | 'isSuccess'>
+
+const DiceContainer = styled.div<DiceContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
   cursor: pointer;
+  filter: drop-shadow(0px 8px 4px rgba(0, 0, 0, 0.5));
+
+  &::before {
+    content: '';
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #fff;
+    filter: blur(1rem);
+  }
+
+  ${({ isCriticalFail }) =>
+    isCriticalFail &&
+    css`
+      &::before {
+        display: block;
+        background-color: #ff3e3e;
+      }
+    `};
+
+  ${({ isSuccess }) =>
+    isSuccess &&
+    css`
+      &::before {
+        display: block;
+        background-color: #5df093;
+      }
+    `};
+
+  svg {
+    width: 8rem;
+    height: auto;
+  }
 `
 
 const Dice = ({
@@ -22,68 +61,33 @@ const Dice = ({
   isCriticalFail = false,
   isSuccess = false,
 }: DiceProps) => {
-  const renderDiceFace = () => {
+  const renderSVG = () => {
     switch (sides) {
       case 4:
-        return (
-          <D4
-            id="d4"
-            result={'' + result}
-            isCriticalFail={isCriticalFail}
-            isSuccess={isSuccess}
-          />
-        )
+        return <D4 />
       case 6:
-        return (
-          <D6
-            id="d6"
-            result={'' + result}
-            isCriticalFail={isCriticalFail}
-            isSuccess={isSuccess}
-          />
-        )
+        return <D6 />
       case 8:
-        return (
-          <D8
-            id="d8"
-            result={'' + result}
-            isCriticalFail={isCriticalFail}
-            isSuccess={isSuccess}
-          />
-        )
+        return <D8 />
       case 10:
-        return (
-          <D10
-            id="d10"
-            result={'' + result}
-            isCriticalFail={isCriticalFail}
-            isSuccess={isSuccess}
-          />
-        )
+        return <D10 />
       case 12:
-        return (
-          <D12
-            id="d12"
-            result={'' + result}
-            isCriticalFail={isCriticalFail}
-            isSuccess={isSuccess}
-          />
-        )
+        return <D12 />
       case 20:
-        return (
-          <D20
-            id="d20"
-            result={'' + result}
-            isCriticalFail={isCriticalFail}
-            isSuccess={isSuccess}
-          />
-        )
+        return <D20 />
       default:
         return null
     }
   }
 
-  return <DiceContainer>{renderDiceFace()}</DiceContainer>
+  return (
+    <DiceContainer isCriticalFail={isCriticalFail} isSuccess={isSuccess}>
+      <DiceFace isCriticalFail={isCriticalFail} isSuccess={isSuccess}>
+        <span>{result}</span>
+        {renderSVG()}
+      </DiceFace>
+    </DiceContainer>
+  )
 }
 
 export default Dice

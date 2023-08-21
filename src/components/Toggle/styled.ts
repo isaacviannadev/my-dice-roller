@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components'
+import { media } from '../../utils/helpers'
 
 type ToggleSlideProps = {
   activeIndex: number
@@ -11,8 +12,8 @@ export const StyledToggle = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  height: 34px;
-  /* padding: 0 0.6rem; */
+  height: 4rem;
+  padding: 0 0.6rem;
 
   background-color: #ededed;
   border-radius: 80px;
@@ -22,18 +23,19 @@ export const StyledToggle = styled.div`
 
 export const ToggleItem = styled.button<ToggleSlideProps>`
   ${({ itemsLength }) => css`
-    width: calc(100% / ${itemsLength});
+    /* width: calc(100% / ${itemsLength}); */
+    width: 100%;
     padding: 0.4rem 1rem;
     transition: all 0.2s ease-in-out;
-    color: #777;
+    color: var(--brand-secondary);
     font-weight: normal;
-    font-size: 1.2rem;
+    font-size: 1.8rem;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
 
     &.active {
-      color: var(--brand-secondary);
+      color: var(--brand-white);
       font-weight: 600;
     }
 
@@ -41,15 +43,18 @@ export const ToggleItem = styled.button<ToggleSlideProps>`
       color: #ccc;
       cursor: not-allowed;
     }
+
+    ${media.md} {
+      font-size: 2rem;
+    }
   `}
 `
 
 export const ToggleSlideDiv = styled.div`
-  display: block;
-  width: 90%;
+  width: 100%;
   position: absolute;
-  background-color: var(--brand-white);
-  height: 2.6rem;
+  background-color: var(--brand-secondary);
+  height: 3rem;
   border-radius: 2.4rem;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease-in-out;

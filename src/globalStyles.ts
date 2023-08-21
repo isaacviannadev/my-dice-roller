@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   #root {
-    --brand-dark: #251713;
+    --brand-dark: #fefefe;
     --brand-light: #d2c2b3;
     --brand-primary: #f5e1cf;
     --brand-secondary: #9d5839;
@@ -37,6 +37,22 @@ const GlobalStyles = createGlobalStyle`
 
   }
 
+  // estilizer a barra de scroll  
+  ::-webkit-scrollbar {
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--brand-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--brand-secondary);
+    border-radius: 0.4rem;
+  }
+
+
   *,
   ::before,
   ::after {
@@ -56,14 +72,23 @@ const GlobalStyles = createGlobalStyle`
   }
 
   html, body, #root {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
     height: 100%;
   }
 
+  *::selection{
+    color: var(--brand-white);
+    background-color: var(--brand-secondary);
+  }
+
   body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Bitter', serif;
     font-size: 1.6rem;
-    background-color: var(--brand-white);
-    color: var(--brand-dark);
+    background-color:#251713;
+    /* background-color: var(--brand-secondary); */
+    color: #fefefe;
     cursor: default;
     font-size: 1.6rem;
     line-height: 1.5;
@@ -71,6 +96,7 @@ const GlobalStyles = createGlobalStyle`
     position: relative;
     tab-size: 4;
     word-break: break-word;
+    
 
     -moz-osx-font-smoothing: grayscale;
     -moz-tab-size: 4;
@@ -100,7 +126,11 @@ const GlobalStyles = createGlobalStyle`
     input,
     select {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
+      font-family: 'Sue Ellen Francisco', sans-serif;
+    }
+
+    h1, h2,h3 {
+      font-family: 'Sue Ellen Francisco', sans-serif;
     }
 
     button {
@@ -113,7 +143,7 @@ const GlobalStyles = createGlobalStyle`
      [type='button'],
      [type='reset'],
      [type='submit'] {
-      cursor: pointer;
+       cursor: url('/images/espada.png');
     }
 
     input,

@@ -1,43 +1,95 @@
-import { styled } from 'styled-components'
+import { keyframes, styled } from 'styled-components'
+import { media } from '../../utils/helpers'
 
+const candleFlicker = keyframes`
+  0% { background-color: rgba(248, 142, 43, 0.6); }
+  25% { background-color: rgba(248, 142, 43, 0.4); }
+  50% { background-color: rgba(248, 142, 43, 0.8); }
+  75% { background-color: rgba(248, 142, 43, 0.4); }
+  85% { background-color: rgba(248, 142, 43, 0.4); }
+  100% { background-color: rgba(248, 142, 43, 0.6); }
+`
 export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 1rem;
   height: 100%;
+  padding: 1rem;
+  max-width: 140rem;
+  margin: 0 auto;
+  padding-bottom: 3rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: -10rem;
+    right: -10rem;
+    width: 20rem;
+    height: 20rem;
+    animation: ${candleFlicker} 3s infinite;
+    filter: blur(10rem);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  ${media.md} {
+    gap: 2rem;
+    padding: 2rem;
+    padding-top: 0;
+
+    &::before {
+      bottom: -20rem;
+      right: -20rem;
+      width: 40rem;
+      height: 40rem;
+    }
+  }
+`
+
+// Cria um contêiner estilizado usando a animação
+const CandleLightContainer = styled.div`
+  // 1 segundo para a animação e repete infinitamente
 `
 export const SelectionWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   width: 100%;
   max-width: 140rem;
   height: 100%;
-  gap: 3rem;
+  gap: 1rem;
 
-  @media only screen and (max-width: 768px) {
-    flex-direction: column-reverse;
+  ${media.md} {
+    gap: 2rem;
+
+    flex-direction: row;
   }
 `
 
 export const MenuArea = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  flex-direction: column-reverse;
+  gap: 1rem;
   align-items: center;
   width: 100%;
-  height: 100%;
-  max-width: 50rem;
+
+  ${media.md} {
+    max-width: 50rem;
+    gap: 2rem;
+    height: 100%;
+    flex-direction: column;
+  }
 `
 
 export const DiceLine = styled.div`
   display: flex;
-  width: 100%;
-  max-width: 140rem;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
   gap: 2rem;
 `
 
@@ -52,16 +104,21 @@ export const DiceButton = styled.button`
   transition: all 0.2s ease-in-out;
 
   span {
-    margin-top: 1rem;
     display: block;
     text-align: center;
     color: inherit;
+    font-size: 4rem;
+    border: 2px solid var(--brand-secondary);
+    border-radius: 5px;
   }
 
-  &:hover:not(:disabled) {
+  &:disabled {
+    opacity: 0.4;
+    pointer-events: none;
+  }
+
+  &:active {
     background-color: var(--brand-primary);
-    box-shadow: var(--shadow-sm);
-    transform: scale(1.1);
 
     > div div {
       transform: scale(1.1);
@@ -73,57 +130,82 @@ export const DiceButton = styled.button`
     }
   }
 
-  &:disabled {
-    opacity: 0.4;
-    pointer-events: none;
+  ${media.md} {
+    &:hover:not(:disabled) {
+      background-color: var(--brand-primary);
+      box-shadow: var(--shadow-sm);
+      transform: scale(1.1);
+
+      > div div {
+        transform: scale(1.1);
+        background-color: var(--brand-secondary);
+
+        span {
+          color: var(--brand-light);
+        }
+      }
+    }
   }
 `
 
 export const ResultsWrapper = styled.div`
   display: flex;
-  width: 100%;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  height: 100%;
   gap: 1rem;
 `
 
 export const DiceResults = styled(ResultsWrapper)`
   display: flex;
-  flex: 1;
   flex-direction: row;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-
+  position: relative;
   border-radius: var(--border-radius-lg);
-  background-color: var(--brand-secondary);
+  overflow: hidden;
+  border: 2px solid var(--brand-secondary);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #9d5839 url('/images/board.avif') no-repeat center center;
+    background-size: cover;
+    background-blend-mode: overlay;
+    filter: brightness(0.8);
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 1) inset;
+
+    z-index: -1;
+  }
 `
 
 export const SettingsWrapper = styled(ResultsWrapper)`
-  flex-direction: space-between;
-  margin-bottom: 2rem;
+  height: fit-content;
 `
 
-export const HistoryArea = styled.div`
+export const DiceSelector = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 100%;
-  max-width: 140rem;
-
-  border-radius: var(--border-radius-lg);
-  background-color: transparent;
 `
-export const HistoryContent = styled.div`
-  display: flex;
-  flex-direction: column;
+
+export const TitleToggle = styled.span`
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: bold;
   width: 100%;
-  height: 100%;
-  max-width: 140rem;
-  gap: 0.5rem;
-  margin-bottom: 7rem;
-  border-top: 1px solid var(--brand-secondary);
-  border-bottom: 1px solid var(--brand-secondary);
-  padding: 1rem;
-  overflow-y: auto;
+  color: var(--brand-primary);
+  text-align: center;
+  width: 100%;
+
+  ${media.md} {
+    font-size: 2rem;
+  }
 `

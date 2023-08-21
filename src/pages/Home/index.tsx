@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from 'react'
 import Dice from '../../components/Dice'
 import { DiceContext } from '../../utils/contexts/DiceContext'
-import { useRollHistory } from '../../utils/contexts/RollHistoryContext'
 
 import {
   HomeContainer,
@@ -12,16 +11,15 @@ import {
   ResultsWrapper,
   SettingsWrapper,
   SelectionWrapper,
-  HistoryArea,
-  HistoryContent,
+  TitleToggle,
+  DiceSelector,
 } from './styled'
 import Toggle from '../../components/Toggle'
+import Header from '../../components/Header'
 import NumberSelector from '../../components/NumberSelector'
 import Title from '../../components/Title'
-import { Dices, Sliders, History, XCircle } from 'lucide-react'
-import Drawer from '../../components/Drawer'
-import Button from '../../components/Button'
-import NotificationLine from '../../components/HistoryLine'
+import { Dices, Sliders } from 'lucide-react'
+import useBreakpoint from '../../utils/hooks/useBreakpoint'
 
 const DiceSet = [
   { id: 'd4', sides: 4 },
@@ -34,14 +32,15 @@ const DiceSet = [
 
 function Home() {
   const { results, rollMultipleDice, clearResults } = useContext(DiceContext)
-  const { history } = useRollHistory()
   const [diceActive, setDiceActive] = useState(20)
   const [quantity, setQuantity] = useState(1)
   const [difficult, setDifficult] = useState(0)
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+  const [expand, setExpand] = useState(true)
 
-  const toggleDrawer = () => {
-    setIsDrawerOpen(!isDrawerOpen)
+  const currentBreakpoint = useBreakpoint()
+
+  const toggleExpand = () => {
+    setExpand(!expand)
   }
 
   const handleRollClick = () => {
@@ -51,7 +50,7 @@ function Home() {
   const isSuccess = (result: number) => {
     if (difficult === 0) return diceActive === result
 
-    return result >= difficult
+    return result >= difficult && result !== 1
   }
 
   const toggleItems = DiceSet.map((side) => ({
@@ -61,6 +60,8 @@ function Home() {
     action: () => setDiceActive(side.sides),
   }))
 
+  const mobileIconSize = currentBreakpoint === 'xs' ? 28 : 48
+
   useEffect(() => {
     setDifficult(0)
     clearResults('selected')
@@ -69,11 +70,13 @@ function Home() {
 
   return (
     <HomeContainer>
-      <h1>Dice Roller</h1>
-
+      <Header />
       <SelectionWrapper>
         <ResultsWrapper>
-          <Title text="Resultados" icon={<Dices size={64} color="#9d5839" />} />
+          <Title
+            text="Resultados"
+            icon={<Dices size={mobileIconSize} color="#9d5839" />}
+          />
           <DiceResults>
             {results.selected?.map((result, index) => (
               <Dice
@@ -91,65 +94,51 @@ function Home() {
         <MenuArea>
           <SettingsWrapper>
             <Title
+              onClick={toggleExpand}
               text="Configurações"
-              icon={<Sliders size={32} color="#9d5839" />}
+              icon={<Sliders size={mobileIconSize} color="#9d5839" />}
             />
 
-            <NumberSelector
-              inline
-              initialQuantity={1}
-              onChange={(newQuantity) => setQuantity(newQuantity)}
-            />
-            <NumberSelector
-              inline
-              initialActive={false}
-              label="Dificuldade"
-              initialQuantity={0}
-              maxQuantity={diceActive}
-              onChange={(newDifficult) => setDifficult(newDifficult)}
-            />
-            <Button onClick={toggleDrawer}>
-              <span>Ver Histórico</span>
-              <History size={24} color="#9d5839" />
-            </Button>
+            {expand && (
+              <>
+                <DiceSelector>
+                  <TitleToggle>Selecione o dado</TitleToggle>
+                  <Toggle items={toggleItems} />
+                </DiceSelector>
+
+                <NumberSelector
+                  inline
+                  initialQuantity={1}
+                  onChange={(newQuantity) => setQuantity(newQuantity)}
+                />
+                <NumberSelector
+                  inline
+                  initialActive={false}
+                  label="Dificuldade"
+                  initialQuantity={0}
+                  maxQuantity={diceActive}
+                  onChange={(newDifficult) => setDifficult(newDifficult)}
+                />
+              </>
+            )}
           </SettingsWrapper>
 
-          <Toggle items={toggleItems} />
-
           <DiceLine>
-            {DiceSet.map((side) => (
-              <DiceButton
-                disabled={side.sides !== diceActive}
-                key={side.id}
-                onClick={handleRollClick}
-              >
-                <Dice id={side.id} result="Rolar" sides={side.sides} />
-              </DiceButton>
-            ))}
+            {DiceSet.map(
+              (side) =>
+                side.sides === diceActive && (
+                  <DiceButton
+                    disabled={side.sides !== diceActive}
+                    key={side.id}
+                    onClick={handleRollClick}
+                  >
+                    <span>Rolar Dados</span>
+                  </DiceButton>
+                ),
+            )}
           </DiceLine>
         </MenuArea>
       </SelectionWrapper>
-
-      <Drawer open={isDrawerOpen} onClose={toggleDrawer}>
-        <HistoryArea>
-          <Title
-            noPadding={false}
-            noMargin
-            text="Histórico"
-            icon={<XCircle size={32} color="#9d5839" onClick={toggleDrawer} />}
-          />
-          <HistoryContent>
-            {history.map((roll, index) => (
-              <NotificationLine
-                key={index}
-                text={`${roll.dice} - ${
-                  roll.result
-                } - ${roll.timestamp.toLocaleString()}`}
-              />
-            ))}
-          </HistoryContent>
-        </HistoryArea>
-      </Drawer>
     </HomeContainer>
   )
 }
