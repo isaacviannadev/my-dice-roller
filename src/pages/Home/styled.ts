@@ -1,14 +1,6 @@
 import { keyframes, styled } from 'styled-components'
 import { media } from '../../utils/helpers'
 
-const candleFlicker = keyframes`
-  0% { background-color: rgba(248, 142, 43, 0.6); }
-  25% { background-color: rgba(248, 142, 43, 0.4); }
-  50% { background-color: rgba(248, 142, 43, 0.8); }
-  75% { background-color: rgba(248, 142, 43, 0.4); }
-  85% { background-color: rgba(248, 142, 43, 0.4); }
-  100% { background-color: rgba(248, 142, 43, 0.6); }
-`
 export const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,36 +15,11 @@ export const HomeContainer = styled.div`
   z-index: 1;
   overflow: hidden;
 
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: -10rem;
-    right: -10rem;
-    width: 20rem;
-    height: 20rem;
-    animation: ${candleFlicker} 3s infinite;
-    filter: blur(10rem);
-    border-radius: 50%;
-    z-index: -1;
-  }
-
   ${media.md} {
     gap: 2rem;
     padding: 2rem;
     padding-top: 0;
-
-    &::before {
-      bottom: -20rem;
-      right: -20rem;
-      width: 40rem;
-      height: 40rem;
-    }
   }
-`
-
-// Cria um contêiner estilizado usando a animação
-const CandleLightContainer = styled.div`
-  // 1 segundo para a animação e repete infinitamente
 `
 export const SelectionWrapper = styled.div`
   display: flex;
