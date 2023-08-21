@@ -1,4 +1,4 @@
-import { keyframes, styled } from 'styled-components'
+import styled from 'styled-components'
 import { media } from '../../utils/helpers'
 
 export const HomeContainer = styled.div`
@@ -100,17 +100,7 @@ export const DiceButton = styled.button`
   ${media.md} {
     &:hover:not(:disabled) {
       background-color: var(--brand-primary);
-      box-shadow: var(--shadow-sm);
-      transform: scale(1.1);
-
-      > div div {
-        transform: scale(1.1);
-        background-color: var(--brand-secondary);
-
-        span {
-          color: var(--brand-light);
-        }
-      }
+      box-shadow: var(--shadow-lg);
     }
   }
 `
