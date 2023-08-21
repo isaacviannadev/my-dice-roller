@@ -13,6 +13,7 @@ const candleFlicker = keyframes`
 const AppContainer = styled.div`
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   &::before {
     content: '';
