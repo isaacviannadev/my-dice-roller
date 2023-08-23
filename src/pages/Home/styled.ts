@@ -143,6 +143,11 @@ export const DiceResults = styled(ResultsWrapper)`
 
 export const SettingsWrapper = styled(ResultsWrapper)`
   height: fit-content;
+  margin-bottom: 4rem;
+
+  ${media.md} {
+    margin-bottom: 0;
+  }
 `
 
 export const DiceSelector = styled.div`
