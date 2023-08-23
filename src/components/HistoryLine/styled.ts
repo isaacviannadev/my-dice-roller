@@ -11,6 +11,7 @@ export const HistoryLineContainer = styled.div`
   background-color: var(--brand-light);
   border: 0.1rem solid var(--brand-secondary);
   transition: all 0.2s ease-in-out;
+  gap: 0.2rem;
 
   &:nth-child(odd) {
     background-color: var(--brand-primary);
@@ -46,4 +47,5 @@ export const InsightsLine = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 `

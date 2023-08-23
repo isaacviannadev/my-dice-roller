@@ -56,23 +56,28 @@ export const NotificationLine = ({ history }: NotificationLineProps) => {
       </InsightDetail>
 
       <InsightsLine>
-        <InsightDetail>
-          <ThumbsUp size={20} color="#388826" strokeWidth={1.5} />
-          <span>
-            {' '}
-            <small>Sucessos: </small>
-            {history.insights.successes}
-          </span>
-        </InsightDetail>
-        {history.insights.fails > 0 && (
-          <InsightDetail>
-            <ThumbsDown size={20} color="#f44a28" strokeWidth={1.5} />
-            <span>
-              {' '}
-              <small>Falhas: </small>
-              {history.insights.fails}
-            </span>
-          </InsightDetail>
+        {history.difficulty > 0 && (
+          <>
+            <InsightDetail>
+              <ThumbsUp size={20} color="#388826" strokeWidth={1.5} />
+              <span>
+                {' '}
+                <small>Sucessos: </small>
+                {history.insights.successes}
+              </span>
+            </InsightDetail>
+
+            {history.insights.fails > 0 && (
+              <InsightDetail>
+                <ThumbsDown size={20} color="#f44a28" strokeWidth={1.5} />
+                <span>
+                  {' '}
+                  <small>Falhas: </small>
+                  {history.insights.fails}
+                </span>
+              </InsightDetail>
+            )}
+          </>
         )}
         {history.insights.criticalFails > 0 && (
           <InsightDetail>
