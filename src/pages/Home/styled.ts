@@ -89,10 +89,6 @@ export const DiceButton = styled.button`
     > div div {
       transform: scale(1.1);
       background-color: var(--brand-secondary);
-
-      span {
-        color: var(--brand-light);
-      }
     }
   }
 
