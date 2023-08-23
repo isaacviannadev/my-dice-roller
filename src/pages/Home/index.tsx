@@ -20,7 +20,7 @@ import Toggle from '../../components/Toggle'
 import Header from '../../components/Header'
 import NumberSelector from '../../components/NumberSelector'
 import Title from '../../components/Title'
-import { Dices, Eye, Sliders, X } from 'lucide-react'
+import { Dices, Eye, Sliders, Trash, X } from 'lucide-react'
 import useBreakpoint from '../../utils/hooks/useBreakpoint'
 import NotificationLine from '../../components/HistoryLine'
 import { calculateInsights } from '../../utils/helpers'
@@ -71,16 +71,19 @@ function Home() {
     action: () => setDiceActive(side.sides),
   }))
 
-  const mobileIconSize = currentBreakpoint === 'xs' ? 28 : 48
-
-  useEffect(() => {
+  const clearStates = () => {
     clearResults('selected')
     setDifficult(0)
     setInsightsVisible(false)
+  }
+
+  const mobileIconSize = currentBreakpoint === 'xs' ? 28 : 48
+  const openFlutuante = !insightsVisible && !!results.selected
+
+  useEffect(() => {
+    clearStates()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diceActive])
-
-  const openFlutuante = !insightsVisible && !!results.selected
 
   return (
     <HomeContainer>
@@ -167,18 +170,12 @@ function Home() {
           </SettingsWrapper>
 
           <DiceLine>
-            {DiceSet.map(
-              (side) =>
-                side.sides === diceActive && (
-                  <DiceButton
-                    disabled={side.sides !== diceActive}
-                    key={side.id}
-                    onClick={handleRollClick}
-                  >
-                    <span>Rolar Dados</span>
-                  </DiceButton>
-                ),
-            )}
+            <DiceButton disabled={!diceActive} onClick={handleRollClick}>
+              <span>Rolar Dados</span>
+            </DiceButton>
+            <DiceButton disabled={!results.selected} onClick={clearStates}>
+              <Trash size={36} color="#af1c1c" />
+            </DiceButton>
           </DiceLine>
         </MenuArea>
       </SelectionWrapper>

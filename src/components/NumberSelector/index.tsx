@@ -19,6 +19,7 @@ interface NumberSelectorProps {
   inline?: boolean
   active?: boolean
   initialActive?: boolean
+  resetField?: () => void
 }
 
 const NumberSelector = ({
@@ -28,6 +29,7 @@ const NumberSelector = ({
   inline = false,
   initialActive = true,
   maxQuantity = 99,
+  resetField,
 }: NumberSelectorProps) => {
   const [quantity, setQuantity] = useState(initialQuantity)
   const [animate, setAnimate] = useState(false)

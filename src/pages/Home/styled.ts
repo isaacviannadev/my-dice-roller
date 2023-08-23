@@ -61,13 +61,17 @@ export const DiceLine = styled.div`
 
 export const DiceButton = styled.button`
   background-color: #e3e3e3;
-  flex-grow: 1;
   border: none;
   border-radius: 5px;
   padding: 1rem;
   font-size: 1.6rem;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  height: 100%;
+
+  &:first-of-type {
+    width: 100%;
+  }
 
   span {
     display: block;
