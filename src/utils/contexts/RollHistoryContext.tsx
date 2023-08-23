@@ -1,7 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from 'react'
 import Cookies from 'js-cookie'
+import { calculateInsights } from '../helpers'
 
-interface InsightsRoll {
+export interface InsightsRoll {
   total: number // Soma dos resultados
   successes: number // Quantidade de sucessos
   fails: number // Quantidade de falhas
@@ -46,48 +47,21 @@ export const RollHistoryProvider = ({ children }: RollHistoryProviderProps) => {
   }, [])
 
   const addRoll = (roll: Roll) => {
-    const { difficulty, result } = roll
-
-    const resultSorted = [...result].sort((a, b) => a - b)
-    const total = resultSorted.reduce((acc, curr) => acc + curr, 0)
-    const criticalFails = resultSorted.filter((r) => r === 1).length
-    const successes =
-      resultSorted.filter((r) => r >= difficulty).length - criticalFails
-
-    const highestRoll = Math.max(...resultSorted)
-    const resultWithoutCriticalFails = resultSorted.filter((r) => r !== 1)
-    const fails = resultWithoutCriticalFails.filter(
-      (r) => r < difficulty,
-    ).length
-    const lowestRoll =
-      resultWithoutCriticalFails.length > 0
-        ? Math.min(...resultWithoutCriticalFails)
-        : 1
-    const highestQuantity = resultSorted.filter((r) => r === highestRoll).length
-    const lowestQuantity = resultSorted.filter((r) => r === lowestRoll).length
-
-    const insights = {
-      total,
-      successes,
-      fails,
-      criticalFails,
-      highestRoll,
-      lowestRoll,
-      highestQuantity,
-      lowestQuantity,
-    }
+    const { result } = roll
+    const insights = calculateInsights(roll)
 
     const updatedHistory = [
       ...history,
       {
         ...roll,
-        result: resultSorted,
+        result,
         insights,
       },
     ]
 
     const sortedHistory = updatedHistory.sort(
-      (a, b) => b.timestamp.getTime() - a.timestamp.getTime(),
+      (a, b) =>
+        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
     )
 
     setHistory(sortedHistory)

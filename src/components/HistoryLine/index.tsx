@@ -2,7 +2,6 @@ import {
   ArrowBigDown,
   ArrowBigUp,
   CalendarClock,
-  Dice6,
   Goal,
   Scale,
   Sigma,
@@ -12,13 +11,23 @@ import {
   X,
 } from 'lucide-react'
 import { Roll } from '../../utils/contexts/RollHistoryContext'
-import { HistoryLineContainer, InsightDetail, InsightsLine } from './styled'
+import {
+  HistoryLineContainer,
+  InsightDetail,
+  InsightsLine,
+  MiniDice,
+} from './styled'
+import { D10, D12, D20, D4, D6, D8 } from '../../assets/svgss'
 
 type NotificationLineProps = {
   history: Roll
+  live?: boolean
 }
 
-export const NotificationLine = ({ history }: NotificationLineProps) => {
+export const NotificationLine = ({
+  history,
+  live = false,
+}: NotificationLineProps) => {
   const date = new Date(history.timestamp)
   const day = String(date.getDate()).padStart(2, '0')
   const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -27,12 +36,34 @@ export const NotificationLine = ({ history }: NotificationLineProps) => {
 
   const formattedDate = `${day}/${month} - ${formattedTime}`
 
-  const resultString = history.result.join(', ')
+  const resultSorted = history.result.sort((a, b) => b - a)
+
+  const resultString = resultSorted.join(', ')
+
+  const diceMap = (dice: string) => {
+    switch (dice) {
+      case 'D-4':
+        return <D4 />
+      case 'D-6':
+        return <D6 />
+      case 'D-8':
+        return <D8 />
+      case 'D-10':
+        return <D10 />
+      case 'D-12':
+        return <D12 />
+      case 'D-20':
+        return <D20 />
+      default:
+        return null
+    }
+  }
+
   return (
-    <HistoryLineContainer>
+    <HistoryLineContainer live={live}>
       <InsightsLine>
         <InsightDetail>
-          <Dice6 size={20} color="#265d88" strokeWidth={1.5} />
+          <MiniDice>{diceMap(history.dice)}</MiniDice>
           <span>
             <small>Dados: </small>
             {history.quantity}
@@ -92,15 +123,16 @@ export const NotificationLine = ({ history }: NotificationLineProps) => {
       </InsightsLine>
 
       <InsightsLine>
-        <InsightDetail>
-          <Sigma size={20} color="#265d88" />
-          <span>
-            <small>Soma: </small>
-            {history.insights.total}
-          </span>
-        </InsightDetail>
         {history.result.length > 1 && (
           <>
+            <InsightDetail>
+              <Sigma size={20} color="#265d88" />
+              <span>
+                <small>Soma: </small>
+                {history.insights.total}
+              </span>
+            </InsightDetail>
+
             <InsightDetail>
               <ArrowBigUp size={20} color="#388826" strokeWidth={1.5} />
               <span>

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 import { media } from '../../utils/helpers'
 
 export const HomeContainer = styled.div`
@@ -100,6 +100,93 @@ export const DiceButton = styled.button`
   }
 `
 
+const slideUp = keyframes`
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`
+
+const slideDown = keyframes`
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+`
+
+export const Flutuante = styled.div<{ insightsVisible: boolean }>`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  ${({ insightsVisible }) =>
+    insightsVisible
+      ? css`
+          animation: ${slideUp} 0.3s ease forwards;
+          bottom: 0;
+        `
+      : css`
+          animation: ${slideDown} 0.3s ease forwards;
+          bottom: 0;
+        `}
+`
+
+export const CloseFlutuante = styled.button<{
+  isVisible: boolean
+  type: 'open' | 'close'
+}>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+
+  width: 3rem;
+  height: 3rem;
+
+  ${({ type }) =>
+    type === 'close'
+      ? css`
+          top: -4rem;
+          right: 1rem;
+        `
+      : css`
+          bottom: 1rem;
+          right: 1rem;
+        `}
+
+  ${({ isVisible }) =>
+    isVisible
+      ? css`
+          display: flex;
+        `
+      : css`
+          display: none;
+        `}
+
+
+  background-color: var(--brand-primary);
+  border-radius: 50%;
+  border: 2px solid var(--brand-secondary);
+  box-shadow: var(--shadow-md);
+
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--brand-secondary);
+    box-shadow: var(--shadow-lg);
+  }
+`
+
 export const ResultsWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -119,6 +206,7 @@ export const DiceResults = styled(ResultsWrapper)`
   border-radius: var(--border-radius-lg);
   overflow: hidden;
   border: 2px solid var(--brand-secondary);
+  position: relative;
 
   &::before {
     content: '';

@@ -13,13 +13,17 @@ import {
   SelectionWrapper,
   TitleToggle,
   DiceSelector,
+  Flutuante,
+  CloseFlutuante,
 } from './styled'
 import Toggle from '../../components/Toggle'
 import Header from '../../components/Header'
 import NumberSelector from '../../components/NumberSelector'
 import Title from '../../components/Title'
-import { Dices, Sliders } from 'lucide-react'
+import { Dices, Eye, Sliders, X } from 'lucide-react'
 import useBreakpoint from '../../utils/hooks/useBreakpoint'
+import NotificationLine from '../../components/HistoryLine'
+import { calculateInsights } from '../../utils/helpers'
 
 const DiceSet = [
   { id: 'd4', sides: 4 },
@@ -36,6 +40,12 @@ function Home() {
   const [quantity, setQuantity] = useState(1)
   const [difficult, setDifficult] = useState(0)
   const [expand, setExpand] = useState(true)
+  const [insightsVisible, setInsightsVisible] = useState(false)
+
+  const insights = calculateInsights({
+    difficulty: difficult,
+    result: results.selected || [],
+  })
 
   const currentBreakpoint = useBreakpoint()
 
@@ -44,6 +54,7 @@ function Home() {
   }
 
   const handleRollClick = () => {
+    setInsightsVisible(true)
     rollMultipleDice('selected', diceActive, quantity, difficult)
   }
 
@@ -65,8 +76,11 @@ function Home() {
   useEffect(() => {
     clearResults('selected')
     setDifficult(0)
+    setInsightsVisible(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diceActive])
+
+  const openFlutuante = !insightsVisible && !!results.selected
 
   return (
     <HomeContainer>
@@ -78,6 +92,13 @@ function Home() {
             icon={<Dices size={mobileIconSize} color="#9d5839" />}
           />
           <DiceResults>
+            <CloseFlutuante
+              onClick={() => setInsightsVisible(true)}
+              isVisible={openFlutuante}
+              type="open"
+            >
+              <Eye size={24} />
+            </CloseFlutuante>
             {results.selected?.map((result, index) => (
               <Dice
                 key={index}
@@ -88,6 +109,28 @@ function Home() {
                 isSuccess={isSuccess(result)}
               />
             ))}
+            <Flutuante insightsVisible={insightsVisible}>
+              {results.selected && (
+                <NotificationLine
+                  live
+                  history={{
+                    dice: `D-${diceActive}`,
+                    difficulty: difficult,
+                    result: results.selected || [],
+                    timestamp: new Date(),
+                    insights: insights,
+                    quantity: quantity,
+                  }}
+                />
+              )}
+              <CloseFlutuante
+                onClick={() => setInsightsVisible(false)}
+                isVisible={insightsVisible}
+                type="close"
+              >
+                <X size={24} />
+              </CloseFlutuante>
+            </Flutuante>
           </DiceResults>
         </ResultsWrapper>
 

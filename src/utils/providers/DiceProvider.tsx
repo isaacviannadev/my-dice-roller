@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react'
 import { DiceContext } from '../contexts/DiceContext'
-import { useRollHistory } from '../contexts/RollHistoryContext'
+import { Roll, useRollHistory } from '../contexts/RollHistoryContext'
 
 type DiceProviderProps = {
   children: ReactNode
