@@ -53,10 +53,9 @@ export const MenuArea = styled.div`
 
 export const DiceLine = styled.div`
   display: flex;
-  justify-content: center;
-  align-items: center;
+
   width: 100%;
-  gap: 2rem;
+  gap: 1rem;
 `
 
 export const DiceButton = styled.button`
@@ -203,13 +202,12 @@ export const ResultsWrapper = styled.div`
 export const DiceResults = styled(ResultsWrapper)`
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  position: relative;
+  flex-wrap: wrap;
   border-radius: var(--border-radius-lg);
-  overflow: hidden;
   border: 2px solid var(--brand-secondary);
+  overflow: hidden;
   position: relative;
 
   &::before {
