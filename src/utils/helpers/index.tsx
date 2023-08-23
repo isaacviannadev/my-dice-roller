@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react'
 import { Roll } from '../contexts/RollHistoryContext'
+import Cookies from 'js-cookie'
 
 export const breakpoints = {
   xs: 320,

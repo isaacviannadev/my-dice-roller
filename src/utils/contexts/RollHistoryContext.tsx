@@ -36,13 +36,52 @@ const RollHistoryContext = createContext<RollHistoryContextData>(
   {} as RollHistoryContextData,
 )
 
+const isValidHistoryFormat = (history: any): history is Roll[] => {
+  if (!Array.isArray(history)) return false
+
+  return history.every((roll) => {
+    return (
+      typeof roll.dice === 'string' &&
+      typeof roll.difficulty === 'number' &&
+      Array.isArray(roll.result) &&
+      roll.result.every(Number.isFinite) &&
+      roll.timestamp instanceof Date &&
+      typeof roll.quantity === 'number' &&
+      roll.insights &&
+      typeof roll.insights.total === 'number' &&
+      typeof roll.insights.successes === 'number' &&
+      typeof roll.insights.fails === 'number' &&
+      typeof roll.insights.criticalFails === 'number' &&
+      typeof roll.insights.highestRoll === 'number' &&
+      typeof roll.insights.lowestRoll === 'number' &&
+      typeof roll.insights.highestQuantity === 'number' &&
+      typeof roll.insights.lowestQuantity === 'number'
+    )
+  })
+}
+
+const getDefaultHistory = () => {
+  return []
+}
+
 export const RollHistoryProvider = ({ children }: RollHistoryProviderProps) => {
   const [history, setHistory] = useState<Roll[]>([])
 
   useEffect(() => {
-    const loadedHistory = Cookies.get('rollHistory')
-    if (loadedHistory) {
-      setHistory(JSON.parse(loadedHistory))
+    try {
+      const loadedHistory = Cookies.get('rollHistory')
+      if (loadedHistory) {
+        const parsedHistory = JSON.parse(loadedHistory)
+        if (isValidHistoryFormat(parsedHistory)) {
+          setHistory(parsedHistory)
+        } else {
+          console.error('Formato de histórico inválido nos cookies.')
+          setHistory(getDefaultHistory())
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao ler o histórico dos cookies:', error)
+      setHistory(getDefaultHistory())
     }
   }, [])
 
