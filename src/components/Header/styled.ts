@@ -13,7 +13,6 @@ export const ImageContainer = styled.div`
   justify-content: center;
   width: 140px;
   height: auto;
-  overflow: hidden;
 
   img {
     display: block;
@@ -29,7 +28,6 @@ export const HistoryArea = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  max-width: 140rem;
 
   border-radius: var(--border-radius-lg);
   background-color: transparent;
@@ -39,7 +37,6 @@ export const HistoryContent = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  max-width: 140rem;
   gap: 0.5rem;
   margin-bottom: 7rem;
   border-top: 1px solid var(--brand-secondary);

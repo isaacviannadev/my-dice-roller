@@ -134,7 +134,7 @@ export const DiceResults = styled(ResultsWrapper)`
     background: #9d5839 url('/images/board.avif') no-repeat center center;
     background-size: cover;
     background-blend-mode: overlay;
-    filter: brightness(0.8);
+    filter: brightness(0.9);
     box-shadow: 0px 0px 40px rgba(0, 0, 0, 1) inset;
 
     z-index: -1;

@@ -11,7 +11,6 @@ export const DrawerContainer = styled.div<{ open: boolean }>`
   background-color: #d2c2b3;
   transform: ${({ open }) => (open ? 'translateX(0)' : 'translateX(-100%)')};
   transition: transform 0.3s ease;
-  overflow-y: auto;
   box-shadow: var(--shadow-right);
 
   z-index: 1000;
