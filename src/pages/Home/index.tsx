@@ -32,7 +32,7 @@ const DiceSet = [
 
 function Home() {
   const { results, rollMultipleDice, clearResults } = useContext(DiceContext)
-  const [diceActive, setDiceActive] = useState(20)
+  const [diceActive, setDiceActive] = useState(10)
   const [quantity, setQuantity] = useState(1)
   const [difficult, setDifficult] = useState(0)
   const [expand, setExpand] = useState(true)
@@ -56,15 +56,15 @@ function Home() {
   const toggleItems = DiceSet.map((side) => ({
     text: `D-${side.sides}`,
     id: side.id,
-    active: side.sides === 20 ? true : false,
+    active: side.sides === 10 ? true : false,
     action: () => setDiceActive(side.sides),
   }))
 
   const mobileIconSize = currentBreakpoint === 'xs' ? 28 : 48
 
   useEffect(() => {
-    setDifficult(0)
     clearResults('selected')
+    setDifficult(0)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [diceActive])
 
