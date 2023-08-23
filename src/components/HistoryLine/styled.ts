@@ -11,7 +11,6 @@ export const HistoryLineContainer = styled.div`
   background-color: var(--brand-light);
   border: 0.1rem solid var(--brand-secondary);
   transition: all 0.2s ease-in-out;
-  transform: scaleY(-1);
 
   &:nth-child(odd) {
     background-color: var(--brand-primary);

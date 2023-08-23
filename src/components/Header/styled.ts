@@ -43,8 +43,6 @@ export const HistoryContent = styled.div`
   border-bottom: 1px solid var(--brand-secondary);
   padding: 1rem;
   overflow-y: auto;
-
-  transform: scaleY(-1);
 `
 export const ActionHeader = styled.div`
   display: flex;
