@@ -87,7 +87,6 @@ const GlobalStyles = createGlobalStyle`
     font-family: 'Bitter', serif;
     font-size: 1.6rem;
     background-color:#251713;
-    /* background-color: var(--brand-secondary); */
     color: #fefefe;
     cursor: default;
     font-size: 1.6rem;

@@ -72,7 +72,7 @@ export const DiceButton = styled.button`
   span {
     display: block;
     text-align: center;
-    color: var(--brand-black);
+    color: #251713;
     font-size: 4rem;
     border: 2px solid var(--brand-secondary);
     border-radius: 5px;
