@@ -134,6 +134,7 @@ const GlobalStyles = createGlobalStyle`
     }
 
     button {
+      appearance: none;
       padding: 0;
       border: none;
       background: none;
@@ -143,7 +144,7 @@ const GlobalStyles = createGlobalStyle`
      [type='button'],
      [type='reset'],
      [type='submit'] {
-       cursor: url('/images/espada.png');
+       cursor: url('./images/espada.png');
     }
 
     input,

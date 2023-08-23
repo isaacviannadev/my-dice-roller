@@ -7,13 +7,12 @@ export const HomeContainer = styled.div`
   align-items: center;
   gap: 1rem;
   height: 100%;
+  max-width: 144rem;
   padding: 1rem;
-  max-width: 140rem;
-  margin: 0 auto;
   padding-bottom: 3rem;
+  margin: 0 auto;
   position: relative;
   z-index: 1;
-  overflow: hidden;
 
   ${media.md} {
     gap: 2rem;
@@ -27,7 +26,6 @@ export const SelectionWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 140rem;
   height: 100%;
   gap: 1rem;
 
