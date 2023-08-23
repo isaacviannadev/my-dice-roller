@@ -44,7 +44,7 @@ function Home() {
   }
 
   const handleRollClick = () => {
-    rollMultipleDice('selected', diceActive, quantity)
+    rollMultipleDice('selected', diceActive, quantity, difficult)
   }
 
   const isSuccess = (result: number) => {

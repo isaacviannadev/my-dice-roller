@@ -44,12 +44,7 @@ const Header = () => {
           />
           <HistoryContent>
             {history.map((roll, index) => (
-              <NotificationLine
-                key={index}
-                text={`${roll.dice} - ${
-                  roll.result
-                } - ${roll.timestamp.toLocaleString()}`}
-              />
+              <NotificationLine key={index} history={roll} />
             ))}
           </HistoryContent>
         </HistoryArea>

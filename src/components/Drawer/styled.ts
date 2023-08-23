@@ -24,6 +24,6 @@ export const DrawerContainer = styled.div<{ open: boolean }>`
   }
 
   ${media.sm} {
-    width: 350px;
+    width: 40rem;
   }
 `

@@ -37,12 +37,14 @@ export const HistoryContent = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  gap: 0.5rem;
+  gap: 0.8rem;
   margin-bottom: 7rem;
   border-top: 1px solid var(--brand-secondary);
   border-bottom: 1px solid var(--brand-secondary);
   padding: 1rem;
   overflow-y: auto;
+
+  transform: scaleY(-1);
 `
 export const ActionHeader = styled.div`
   display: flex;

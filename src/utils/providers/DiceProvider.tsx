@@ -15,7 +15,23 @@ export const DiceProvider = ({ children }: DiceProviderProps) => {
     audio.play()
   }
 
-  const rollMultipleDice = (id: string, sides: number, quantity: number) => {
+  const insights = {
+    total: 0,
+    successes: 0,
+    fails: 0,
+    criticalFails: 0,
+    highestRoll: 0,
+    lowestRoll: 0,
+    highestQuantity: 0,
+    lowestQuantity: 0,
+  }
+
+  const rollMultipleDice = (
+    id: string,
+    sides: number,
+    quantity: number,
+    difficulty = 0,
+  ) => {
     const rolls = Array.from(
       { length: quantity },
       () => Math.floor(Math.random() * sides) + 1,
@@ -29,8 +45,11 @@ export const DiceProvider = ({ children }: DiceProviderProps) => {
 
     addRoll({
       dice: `D-${sides}`,
+      difficulty: difficulty,
       result: rolls,
+      insights,
       timestamp: new Date(),
+      quantity,
     })
   }
 
