@@ -19,6 +19,7 @@ export const HomeContainer = styled.div`
     gap: 2rem;
     padding: 2rem;
     padding-top: 0;
+    padding-bottom: 4rem;
   }
 `
 export const SelectionWrapper = styled.div`

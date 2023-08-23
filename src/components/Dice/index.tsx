@@ -19,6 +19,7 @@ const DiceContainer = styled.div<DiceContainerProps>`
   align-items: center;
   cursor: pointer;
   filter: drop-shadow(0px 8px 4px rgba(0, 0, 0, 0.5));
+  position: relative;
 
   &::before {
     content: '';
