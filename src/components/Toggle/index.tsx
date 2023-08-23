@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { StyledToggle, ToggleItem, ToggleSlideDiv } from './styled'
 
 export type ToggleItemProps = {
@@ -27,7 +27,7 @@ export const Toggle = ({ items, filteredData }: ToggleProps) => {
     filteredData && filteredData(items[index].id)
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const updateSizeAndPosition = () => {
       filteredData && filteredData(items[isActive].id)
 
@@ -67,8 +67,6 @@ export const Toggle = ({ items, filteredData }: ToggleProps) => {
           onClick={() => handleClick(index)}
           className={isActive === index ? 'active' : ''}
           disabled={item.disabled}
-          activeIndex={isActive}
-          itemsLength={items.length}
         >
           {item.text}
         </ToggleItem>

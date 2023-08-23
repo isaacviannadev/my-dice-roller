@@ -1,11 +1,6 @@
 import styled, { css } from 'styled-components'
 import { media } from '../../utils/helpers'
 
-type ToggleSlideProps = {
-  activeIndex: number
-  itemsLength: number
-}
-
 export const StyledToggle = styled.div`
   position: relative;
   display: flex;
@@ -21,33 +16,30 @@ export const StyledToggle = styled.div`
   z-index: 1;
 `
 
-export const ToggleItem = styled.button<ToggleSlideProps>`
-  ${({ itemsLength }) => css`
-    /* width: calc(100% / ${itemsLength}); */
-    width: 100%;
-    padding: 0.4rem 1rem;
-    transition: all 0.2s ease-in-out;
-    color: var(--brand-secondary);
-    font-weight: normal;
-    font-size: 1.8rem;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+export const ToggleItem = styled.button`
+  width: 100%;
+  padding: 0.4rem 1rem;
+  transition: all 0.2s ease-in-out;
+  color: var(--brand-secondary);
+  font-weight: normal;
+  font-size: 1.8rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 
-    &.active {
-      color: var(--brand-white);
-      font-weight: 600;
-    }
+  &.active {
+    color: var(--brand-white);
+    font-weight: 600;
+  }
 
-    &:disabled {
-      color: #ccc;
-      cursor: not-allowed;
-    }
+  &:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
 
-    ${media.md} {
-      font-size: 2rem;
-    }
-  `}
+  ${media.md} {
+    font-size: 2rem;
+  }
 `
 
 export const ToggleSlideDiv = styled.div`

@@ -20,7 +20,7 @@ export const HistoryLineContainer = styled.div<HistoryLineProps>`
   ${({ live }) =>
     live
       ? css`
-          background-color: #f5e1cfa0;
+          background-color: #ffffffcd;
           box-shadow: 0 -1rem 1rem rgba(0, 0, 0, 0.5);
         `
       : css`
